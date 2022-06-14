@@ -2,8 +2,7 @@
  * my_accessory.c
  * Define the accessory in C language using the Macro in characteristics.h
  *
- *  Created on: 2020-05-15
- *      Author: Mixiaoxiao (Wang Bin)
+ *  Based on Mixiaoxiao (Wang Bin)'s Temperature Sensor Example
  */
 
 #include <homekit/homekit.h>
@@ -15,32 +14,9 @@ void my_accessory_identify(homekit_value_t _value) {
 	printf("accessory identify\n");
 }
 
-// For TEMPERATURE_SENSOR,
-// the required characteristics are: CURRENT_TEMPERATURE
-// the optional characteristics are: NAME, STATUS_ACTIVE, STATUS_FAULT, STATUS_TAMPERED, STATUS_LOW_BATTERY
-// See HAP section 8.41 and characteristics.h
-
-// (required) format: float; HAP section 9.35; min 0, max 100, step 0.1, unit celsius
 homekit_characteristic_t cha_contact_sensor_state = HOMEKIT_CHARACTERISTIC_(CONTACT_SENSOR_STATE, 0);
 
-// (optional) format: string; HAP section 9.62; max length 64
 homekit_characteristic_t cha_name = HOMEKIT_CHARACTERISTIC_(NAME, "Door Contact");
-
-
-// (optional) format: bool; HAP section 9.96
-// homekit_characteristic_t cha_status_active = HOMEKIT_CHARACTERISTIC_(STATUS_ACTIVE, true);
-
-// (optional) format: uint8; HAP section 9.97; 0 "No Fault", 1 "General Fault"
-// homekit_characteristic_t cha_status_fault = HOMEKIT_CHARACTERISTIC_(STATUS_FAULT, 0);
-
-// (optional) format: uint8; HAP section 9.100; 0 "Accessory is not tampered", 1 "Accessory is tampered with"
-// homekit_characteristic_t cha_status_tampered = HOMEKIT_CHARACTERISTIC_(STATUS_TAMPERED, 0);
-
-// (optional) format: uint8; HAP section 9.99; 0 "Battery level is normal", 1 "Battery level is low"
-// homekit_characteristic_t cha_status_low_battery = HOMEKIT_CHARACTERISTIC_(STATUS_LOW_BATTERY, 0);
-
-// example for humidity
-// homekit_characteristic_t cha_humidity  = HOMEKIT_CHARACTERISTIC_(CURRENT_RELATIVE_HUMIDITY, 0);
 
 homekit_accessory_t *accessories[] = {
     HOMEKIT_ACCESSORY(.id=1, .category=homekit_accessory_category_sensor, .services=(homekit_service_t*[]) {
@@ -54,21 +30,8 @@ homekit_accessory_t *accessories[] = {
             NULL
         }),
         HOMEKIT_SERVICE(CONTACT_SENSOR, .primary=true, .characteristics=(homekit_characteristic_t*[]) {
-            &cha_contact_sensor_state,
-			&cha_name,//optional
-			//&cha_status_active,//optional
-			//&cha_status_fault,//optional
-			//&cha_status_tampered,//optional
-			//&cha_status_low_battery,//optional
-            NULL
+            &cha_contact_sensor_state, &cha_name, NULL
         }),
-		// Add this HOMEKIT_SERVICE if you has a HUMIDITY_SENSOR together
-		/*
-        HOMEKIT_SERVICE(HUMIDITY_SENSOR, .characteristics=(homekit_characteristic_t*[]) {
-            HOMEKIT_CHARACTERISTIC(NAME, "Humidity Sensor"),
-            &cha_humidity,
-            NULL
-        }),*/
         NULL
     }),
     NULL
