@@ -1,8 +1,7 @@
 /*
  * wifi_info.h
  *
- *  Created on: 2020-05-15
- *      Author: Mixiaoxiao (Wang Bin)
+ *  Based on Mixiaoxiao (Wang Bin)'s Temperature Sensor Example
  */
 
 #ifndef WIFI_INFO_H_
