@@ -1,5 +1,5 @@
 /*
- * door_sensor.ino
+ * contact_sensor.ino
  *
  *
  *  Based on the TemperatureSensor example by Mixiaoxiao (Wang Bin)
